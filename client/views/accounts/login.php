@@ -3,17 +3,17 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="../css/base.css">
-     <link rel="stylesheet" href="../css/login.css">
+     <link rel="stylesheet" href="../../css/base.css">
+     <link rel="stylesheet" href="../../css/login.css">
      <title>Đăng nhập</title>
 </head>
 <body>
      <div class="wrapper">
           <div class="container">
-               <form class="login-form" >
+               <form class="login-form" action="../../controllers/account.php" method="post">
                     <h2 class="form-heading">Đăng nhập</h2>
                     <p class="form-desc" >Bạn không có tài khoản ?
-                         <a class="text-link" href="../views/register.html">Đăng ký</a>
+                         <a class="text-link" href="../accounts/register.php">Đăng ký</a>
                     </p>   
 
                     <div class="form-control">
@@ -26,7 +26,7 @@
                          <input name="password" type="password" placeholder="Nhập mật khẩu của bạn" >
                     </div>
 
-                    <a href="../views/forgotPassword.html" class="form-text">Quên mật khẩu</a>
+                    <a href="../accounts/forgetPassword.php" class="form-text">Quên mật khẩu</a>
                     <button name="btn-login" class="form-btn" >Đăng nhập</button>
                </form>
           </div>

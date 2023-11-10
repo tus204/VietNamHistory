@@ -4,21 +4,21 @@
      <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link rel="stylesheet" href="../css/base.css">
-          <link rel="stylesheet" href="../css/login.css">
+          <link rel="stylesheet" href="../../css/base.css">
+          <link rel="stylesheet" href="../../css/login.css">
           <title>Quên mật khẩu</title>
      </head>
      <body>
           <div class="wrapper">
-               <div class="container">
-                    <form class="login-form" >
+               <div class="container" >
+                    <form class="login-form" action="../../controllers/account.php" method="POST">
                          <h2 class="form-heading">Nhập email để lấy tại mật khẩu</h2>  
                          <div class="form-control">
                               <input name="email" type="email" placeholder="Nhập email của bạn" >
                          </div>
      
-                         <a href="../views/login.html" class="form-text">Đăng nhập tài khoản</a>
-                         <button name="btn-login" class="form-btn">Xác nhận</button>
+                         <a href="../accounts/login.php" class="form-text">Đăng nhập tài khoản</a>
+                         <button  name="btn-forget-password" class="form-btn">Xác nhận</button>
                     </form>
                </div>
           </div>
