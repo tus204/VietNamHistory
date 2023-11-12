@@ -38,6 +38,29 @@ body {
 
 /* base css */
 .container {
-     max-width: 1200px;
-     margin: 0 auto;
+  max-width: 1904px;
+  margin: 0 auto;
+}
+
+.btn {
+  background: linear-gradient(to right bottom,#ff8f26,#ff5117);
+  border-radius: 99px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 20px;
+  transition: 0.2s linear;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn.btn-white {
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 20px;
 }

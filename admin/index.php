@@ -41,10 +41,11 @@ if(isset($_GET['act'])) {
                break;
 
           default:
+               // thống kê
                break;
      }
 }else {
-
+     // thống kê
 }
 include_once('./footer.php');
 
