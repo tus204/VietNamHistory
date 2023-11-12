@@ -78,7 +78,9 @@ CREATE TABLE `correctanswers` (
 CREATE TABLE `posts` (
   `post_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `post_text` text NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `post_title` text NOT NULL,
+  `post_content` text NOT NULL,
   `post_time` datetime NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL
@@ -111,6 +113,8 @@ CREATE TABLE `quiz` (
   `score` int(11) DEFAULT NULL,
   `time` time DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `create_by` varchar(255) NOT NULL , 
+  `total_question` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -145,9 +149,19 @@ CREATE TABLE `users` (
   `gender` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 --
 -- Đang đổ dữ liệu cho bảng `users`
 --
+----------------
+CREATE TABLE `courses`(
+  `quiz_id` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `desc` text NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `created_by` int(11) NOT NULL,
+)
 
 INSERT INTO `users` (`user_id`, `full_name`, `email`, `password`, `mobile`, `role`, `image`, `gender`) VALUES
 (10, 'anh tu', 'anhtu@gmail.com', 'admin', NULL, '0', NULL, NULL),
