@@ -18,3 +18,17 @@ questionModel.addEventListener('click', function(event) {
 btnSave.addEventListener('click', function() {
      questionModel.classList.remove('active')
 })
+
+const radioButtons = document.querySelectorAll('.answer-item input[type="radio"]');
+
+// Lặp qua từng radio button và thêm sự kiện change
+radioButtons.forEach((radio) => {
+    radio.addEventListener('change', (event) => {
+        // Bỏ chọn tất cả các radio button trừ radio button được chọn
+        radioButtons.forEach((otherRadio) => {
+            if (otherRadio !== event.target) {
+                otherRadio.checked = false;
+            }
+        });
+    });
+});
