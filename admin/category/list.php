@@ -9,13 +9,21 @@
      </thead>
      <tbody>
      <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>
-               <button type="button" class="btn btn-warning">Edit</button>
-               <button type="button" class="btn btn-danger">Delete</button>
-          </td>
-     </tr>
+          <?php
+           foreach ($listcategory as $category) {
+              extract($category);
+              $suacate = "index.php?act=fixcate&id=".$category_id;
+              $xoacate = "index.php?act=deletecate&id=".$category_id;
+              echo '  <tr> <td scope="row"> '.$category_id.' </td>
+              <td scope="row">'.$category_name.'</td>
+              <td>
+              <a href="'.$suacate.'"><button type="button" class="btn btn-warning" name="fixcate">Edit</button></a>
+              <a href="'.$xoacate.'"><button type="button" class="btn btn-danger" name="deletecate">Delete</button></a>
+         </td> </tr>'; 
+           }
+          ?>
+
+     
      </tbody>
 </table>
 <a href="index.php?act=add-category" class="btn btn-primary">Add Category</a>
