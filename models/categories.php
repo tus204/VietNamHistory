@@ -1,6 +1,6 @@
 <?php
-function insert_category(){
-    $sql = "INSERT INTO `categories`(`category_id`, `category_name`) VALUES ('NULL','$category_name')";
+function insert_category($category_name){
+    $sql = "INSERT INTO `categories`( `category_name`) VALUES ( '$category_name')";
     pdo_execute($sql);
 }
 function loadall_category(){
