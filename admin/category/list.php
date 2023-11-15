@@ -12,8 +12,8 @@
           <?php
            foreach ($listcategory as $category) {
               extract($category);
-              $suacate = "index.php?act=fixcate&id=".$category_id;
-              $xoacate = "index.php?act=deletecate&id=".$category_id;
+              $suacate = "index.php?act=fix-category&id=".$category_id;
+              $xoacate = "index.php?act=delete-category&id=".$category_id;
               echo '  <tr> <td scope="row"> '.$category_id.' </td>
               <td scope="row">'.$category_name.'</td>
               <td>
