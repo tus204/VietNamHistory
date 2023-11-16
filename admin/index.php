@@ -2,7 +2,7 @@
      include_once ('../models/user.php');
      include_once('../models/post.php');
      include_once('../models/categories.php');
-     
+     include_once('../models/quiz.php');
      include_once('../models/pdo.php');
      include_once('./header.php');
      
@@ -32,7 +32,7 @@ if(isset($_GET['act'])) {
                          // Gọi hàm cập nhật người dùng
                          updateUser($user_id, $full_name, $email, $password, $mobile, $role, $gender, $image);
 
-                         // chuyển hướng
+                         // chuyển hướng về list
                          header("Location: ?act=list-user");
                          exit();
                     } else {
@@ -55,11 +55,12 @@ if(isset($_GET['act'])) {
                break;
                
           case 'add-quiz':
-               include_once('./quiz/add.php');
+               include_once('./views/quiz/add.php');
                break;
 
           case 'list-quiz':
-               include_once('./quiz/list.php');
+               $quiz = quiz::getAllQuiz();
+               include_once('./views/quiz/list.php');
                break;
 
           case 'add-category':
@@ -67,12 +68,12 @@ if(isset($_GET['act'])) {
                  $category_name = $_POST['category_name'];
                  insert_category($category_name);
                 }
-               include_once('./category/add.php');
+               include_once('./views/category/add.php');
                break;
 
           case 'list-categories':
                $listcategory = loadall_category();
-               include_once('./category/list.php');
+               include_once('./views/category/list.php');
                break;
 
           case 'delete-category':
@@ -80,7 +81,7 @@ if(isset($_GET['act'])) {
                delete_category();
                }
                $listcategory = loadall_category();
-               include_once('./category/list.php');
+               include_once('./views/category/list.php');
                break;
 
           case 'fix-category':
@@ -89,7 +90,7 @@ if(isset($_GET['act'])) {
 
                }
                $listcategory = loadall_category();
-               include_once('./category/update.php');
+               include_once('./views/category/update.php');
                break;              
           
 
