@@ -13,7 +13,7 @@ function delete_category(){
     pdo_execute($sql);
 }
 function loadone_categories($id){
-    $sql = "SELECT * FROM categories WHERE id=".$category_id;
+    $sql = "SELECT * FROM categories WHERE id=".$_GET['category_id'];
     $category = pdo_query_one($sql);
     return $category;
 }

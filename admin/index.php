@@ -1,12 +1,60 @@
 <?php
-include_once('../models/post.php');
-include_once('../models/categories.php');
-include_once('../models/pdo.php');
-include_once('./header.php');
+     include_once ('../models/user.php');
+     include_once('../models/post.php');
+     include_once('../models/categories.php');
+     
+     include_once('../models/pdo.php');
+     include_once('./header.php');
+     
 if(isset($_GET['act'])) {
      $act = $_GET['act'];
      switch ($act) {
-          case 'add-quiz';
+
+          case 'list-user':
+               $users = getAllUsers();
+               include_once('./views/user/list.php');
+               break;
+
+          case 'update-user':            
+               if(isset($_GET['user_id'])) {
+                    $user_id = $_GET['user_id'];
+                    $user = getUserById($user_id);
+                    
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                         $full_name = $_POST['full_name'];
+                         $email = $_POST['email'];
+                         $password = $_POST['password'];
+                         $mobile = $_POST['mobile'];
+                         $role = $_POST['role'];
+                         $gender = $_POST['gender'];
+                         $image = $_FILES['image'];
+
+                         // Gọi hàm cập nhật người dùng
+                         updateUser($user_id, $full_name, $email, $password, $mobile, $role, $gender, $image);
+
+                         // chuyển hướng
+                         header("Location: ?act=list-user");
+                         exit();
+                    } else {
+                         include_once('./views/user/updateUser.php');
+                    }
+               }
+               break;
+               
+          case 'delete-user':
+               if(isset($_GET['user_id']) && $_GET['user_id']>0) {
+                    $user_id_to_delete = $_GET['user_id'];
+                    
+                    // Gọi hàm xóa người dùng
+                    delUser($user_id_to_delete);
+               
+                    // chuyển hướng     
+                    header("Location: ?act=list-user");
+                    exit();
+               }
+               break;
+               
+          case 'add-quiz':
                include_once('./quiz/add.php');
                break;
 
@@ -42,11 +90,8 @@ if(isset($_GET['act'])) {
                }
                $listcategory = loadall_category();
                include_once('./category/update.php');
-               break;
-               
-          case 'list-user':
-               include_once('./user/list.php');
-               break;
+               break;              
+          
 
           case 'add-post':
                if(isset($_POST['add_post'])){
