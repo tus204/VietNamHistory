@@ -1,4 +1,5 @@
 <?php
+ include_once ('../models/comment.php');
      include_once ('../models/user.php');
      include_once('../models/post.php');
      include_once('../models/categories.php');
@@ -63,68 +64,130 @@ if(isset($_GET['act'])) {
                include_once('./views/quiz/list.php');
                break;
 
-          case 'add-category':
-                if(isset($_POST['add_category']) ){
-                 $category_name = $_POST['category_name'];
-                 insert_category($category_name);
-                }
-               include_once('./views/category/add.php');
-               break;
+               case 'add-category':
+                    if(isset($_POST['add_category']) ){
+                     $category_name = $_POST['category_name'];
+                     insert_category($category_name);
+                     header("Location: ?act=list-categories");
+                     exit();
+                    }
+                    include_once('./views/category/add.php');
+                    break;
+    
+              case 'list-categories':
+                   $listcategory = loadall_category();
+                   include_once('./views/category/list.php');
+                   break;
+    
+              case 'delete-category':
+                   if(isset($_GET['id']) && $_GET['id']>0 ){
+                   delete_category();
+                   }
+                   $listcategory = loadall_category();
+                   include_once('./views/category/list.php');
+                   break;
+    
+              case 'edit-category':
+                    if(isset($_GET['id'])&& $_GET['id']>0){
+                   $category = loadone_categories($_GET['id']);
+    
+                   }
+                   $listcategory = loadall_category();
+                   include_once('./views/category/update.php');
+                   break;
+                   
+              
+              case 'update-category':
+                   if(isset($_POST['update_category']) ){
+                        $category_name = $_POST['category_name'];
+                        $category_id =$_POST['category_id'];
+                       update_category($category_id,$category_name);
+                       }
+                   $listcategory = loadall_category();
+                   include_once('./views/category/list.php');
+                   break;
 
-          case 'list-categories':
-               $listcategory = loadall_category();
-               include_once('./views/category/list.php');
-               break;
+               case 'add-post':
+                    if(isset($_POST['add-post'])){
+                         $post_title = $_POST['post_title'];
+                         $post_content = $_POST['post_content'];
+                         $post_time = date("Y-m-d H:i:s"); 
+                         $image= basename($_FILES['post_image']['name']);
+                         $target_file = "../upload/".$image;
+                         
+                         if (move_uploaded_file($_FILES["post_image"]["tmp_name"], $target_file)){
+                              
+                         }
+                         
+                         $category_id = $_POST['category_id'];
+                         insert_post($post_title, $post_content, $post_time,$image,$category_id);
 
-          case 'delete-category':
-               if(isset($_GET['category_id']) && $_GET['category_id']>0){
-               delete_category();
-               }
-               $listcategory = loadall_category();
-               include_once('./views/category/list.php');
-               break;
-
-          case 'fix-category':
-                if(isset($_GET['category_id'])&& $_GET['category_id']>0){
-               $cate = loadone_categories($_GET['category_id']);
-
-               }
-               $listcategory = loadall_category();
-               include_once('./views/category/update.php');
-               break;              
-          
-
-          case 'add-post':
-               if(isset($_POST['add_post'])){
-                    $category_id = $_POST['category_id'];
-                    $post_title = $_POST['post_title'];
-                    $post_content = $_POST['post_content'];
-                    $post_time = 
-                    // if($_FILES['post_image']){
-                    //      $target_dir = "../upload/";
-                    //      $name_img = $_FILES["post_image"]["name"];
-                    //      $target_file = $target_dir.$name_img;
-                    //      move_uploaded_file($_FILES["post_image"]['tmp_name'],$target_file);
-                    //  }
-                 
-                    insert_post($post_title,$post_content,$category_id,$post_time);
-               }
-               $listcategory = loadall_category();
-               include_once('./post/add.php');
-               break;
-
-          case 'list-post':
-               $listpost = loadall_post();
-               include_once('./post/list.php');
-               break;
+                         header("Location: ?act=list-post");
+                         exit();                    
+                    }
+                    $listcategory = loadall_category();
+                    include_once('./views/post/add.php');
+                    break;
+    
+              case 'list-post':
+                   $listpost = loadall_post();
+                   include_once('./views/post/list.php');
+                   break;
+    
+              case 'delete-post':
+                   if(isset($_GET['id']) && $_GET['id']){
+                        delete_post();
+                   }
+                   $listpost = loadall_post();
+                   include_once('./views/post/list.php');
+                   break;          
+              case 'edit-post':
+                   if(isset($_GET['id'])){
+                        $post = loadone_post($_GET['id']);
+         
+                        }
+                   $listcategory = loadall_category();     
+                   $listpost = loadall_post();
+                   include_once "./views/post/update.php";
+                   break;
+              case 'update-post':
+                    if(isset($_POST['update_post'])){
+                        $post_title = $_POST['post_title'];
+                        $post_content = $_POST['post_content'];
+                        $post_time = date("Y-m-d H:i:s"); 
+                       $image= basename($_FILES['post_image']['name']);
+                       $target_file = "../upload/".$image;
+                       
+                        if (move_uploaded_file($_FILES["post_image"]["tmp_name"], $target_file)){
+                             echo "Thêm thành công !";
+                        }
+                        
+                        $category_id = $_POST['category_id'];
+                        $post_id = $_POST['post_id'];
+                        update_post($post_id,$post_title,$post_content,$post_time,$image,$category_id);
+    
+                   
+                   }
+                   $listcategory = loadall_category();     
+                   $listpost = loadall_post();
+                   include_once "./views/post/list.php";
+                   break;        
 
           case 'point':
-               include_once('./points/list.php');
+               include_once('./views/points/list.php');
                break;
 
           case 'comment':
-               include_once('./comment/list.php');
+               $listcomment = loadall_comment();
+               include_once('./views/comment/list.php');
                break;
+          case 'del-cmt':
+               if(isset($_GET['id'])){
+                    delete_comment();
+               }
+               $listcomment = loadall_comment();
+               include_once('./views/comment/list.php');
+               break;      
 
           default:
                // thống kê

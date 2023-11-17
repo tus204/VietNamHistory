@@ -1,5 +1,5 @@
 <table class="table mt-4">
-     <h2 class="text-center text-primary mt-3">Quiz List</h2>
+     <h2 class="text-center text-primary mt-3">List Post</h2>
      <thead>
      <tr>
           <th scope="col">#</th>   
@@ -16,28 +16,28 @@
            foreach ($listpost as $post) {
                extract($post);
                if(is_file('../upload/'.$image)) {
-                    $hinh = "<img src='".('../upload/'.$image)."' width='150'>";
+                    $hinh = "<img src='".('../upload/'.$image)."' width='100'>";
                 } else {
                     $hinh = "no photo";
                 } 
-               $sql = "SELECT users.full_name FROM `posts`INNER JOIN users
-               ON posts.user_id = users.user_id";
-               $fullname = pdo_query_value($sql);
-               echo '     <tr>
-               <th scope="row">'.$post_id.'</th>
-               <td>'.$post_title.'</td>
-               <td>'.$post_content.'</td>
-               <td>'.$post_time.'</td>
-               <td>'.$hinh.'</td>
-               <td>'.$fullname.'</td>
+               $editpost ="index.php?act=edit-post&id=".$post_id;
+               $xoapost ="index.php?act=delete-post&id=".$post_id;
+               ?>
+                  <tr>
+               <th scope="row"><?=$post_id?></th>
+               <td><?=$post_title?></td>
+               <td><?=$post_content?></td>
+               <td><?=$post_time?></td>
+               <td><?=$hinh?></td>
+               <td><?=$full_name?></td>
                <td>
-                    <button type="button" class="btn btn-warning">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+               <a href="<?=$editpost?>"> <button type="button" class="btn btn-warning">Edit</button></a>
+               <a href="<?=$xoapost?>">  <button type="button" class="btn btn-danger" onclick="return confirm('Xác nhận xóa người dùng này ?')">Delete</button></a>
                </td>
-          </tr>';
+          </tr>
+          <?php
            }
           ?>
-  
      </tbody>
 </table>
 <a href="index.php?act=add-post" class="btn btn-primary">Add Post</a>
